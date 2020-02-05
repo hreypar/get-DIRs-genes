@@ -8,11 +8,11 @@
 ###################################################################
 #setwd("~/Desktop/february20/get-diff-genes/")
 #################### import libraries and set options ####################
-library(magrittr)
-library(dplyr)
+#library(magrittr)
+#library(dplyr)
 library(multiHiCcompare)
-library(annotables)
-library(GenomicRanges)
+#library(annotables)
+#library(GenomicRanges)
 #
 options(scipen = 10)
 #
@@ -29,9 +29,14 @@ options(scipen = 10)
 # library(graph)
 
 ########################## read in data ###################################
-# load("data_hicexp_objects_cyclic_loess_glm/NC_cycnorm_glm.Rdata")
+# YOU GONNA HAVE TO DO THIS AGAIN AND PROPERLY USE saveRDS AND SO AND SO
+#infile_path <- "data-hicexp-cyclicloess-glm//NC_cycnorm_glm.Rdata"
 
 # read in a normalized and compared hiccompare hicexp dataset
+norm_diff_hicexp <- readRDS(infile_path)
+
+
+
 # read in a grch38 gene data set (in granges format)
 
 
