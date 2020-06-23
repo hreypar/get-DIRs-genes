@@ -7,12 +7,12 @@
 # 
 ###################################################################
 #setwd("~/Desktop/february20/get-diff-genes/")
-#################### import libraries and set options ####################
+############### import libraries and set options ##################
 #library(magrittr)
 #library(dplyr)
 library(multiHiCcompare)
 #library(annotables)
-#library(GenomicRanges)
+library(GenomicRanges)
 #
 options(scipen = 10)
 #
@@ -28,7 +28,7 @@ options(scipen = 10)
 # library(ROntoTools)
 # library(graph)
 
-########################## read in data ###################################
+#################### read in data ##################################
 # YOU GONNA HAVE TO DO THIS AGAIN AND PROPERLY USE saveRDS AND SO AND SO
 #infile_path <- "data-hicexp-cyclicloess-glm//NC_cycnorm_glm.Rdata"
 
@@ -36,22 +36,59 @@ options(scipen = 10)
 norm_diff_hicexp <- readRDS(infile_path)
 
 
-
-# read in a grch38 gene data set (in granges format)
-
-
-
-#################### select significant differences ######################
-
-# use a cutoff to select significant differences
-# convert significant differences to granges format
-
-
-####### perform overlap between genes and significant differences #########
+# why do I want to convert to Granges? 
+# WHAT IS THE OUTPUT HERE? A TEXT FILE AND AN RDS FILE. 
+toGranges <- function(sig_regions) {
+  makeGRangesFromDataFrame(sig_regions,
+                           seqnames.field = "chr",
+                           start.field = "start", 
+                           end.field = "end", 
+                           keep.extra.columns = TRUE)
+}
 
 
-# maybe I need to inherit information from the interaction diffences (e.g. how significant?)
-# in order to "rate" genes??? 
+# get significant pairs list  
+# covert to GenomicInteractions object
+
+# get human genes grch38 granges object (the other code in bin)
+# get human transcription factors
+
+# overlap features with GenomicInteractions object
+
+# export and/or visualize this (different module?)  
+
+
+
+######## THESE ARE ADDITIONALS YOU CAN SUPPLEMENT
+# get human promoters (?) these are sensitive to condition
+# get MCF10 cell lines TADs
+########
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
