@@ -7,3 +7,7 @@ Obtain the set of genes within genomic regions that present different Hi-C inter
 
 [circular visualization in R](https://jokergoo.github.io/circlize_book/book/graphics.html#segments)
 
+[granges](http://www.sthda.com/english/wiki/granges-and-grangeslist)
+
+[The human TFs](http://humantfs.ccbr.utoronto.ca/download.php)
+
