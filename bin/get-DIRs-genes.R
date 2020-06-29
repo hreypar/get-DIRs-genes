@@ -15,18 +15,22 @@
 #
 #options(scipen = 10)
 #
-library(GenomicRanges)
-suppressMessages(library(GenomicInteractions))
+suppressMessages(library(GenomicRanges))
+#suppressMessages(library(GenomicInteractions))
 #
 # input options
 args = commandArgs(trailingOnly=TRUE)
 ########################## functions ###################################
 # it's dangerous to go alone! take this.
 #
-####################### test empty function. ###########################
-test <- function() {
-  
+####################### Add DIR index column ###########################
+add_DIR_index <- function(interactions) {
+  # create index column
+  interactions$DIR <- paste0("DIR_", rownames(interactions))
+  return(interactions)
 }
+
+
 #
 #################### read in data ##################################
 sigpairs.list <- readRDS(args[1])
