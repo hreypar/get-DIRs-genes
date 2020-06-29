@@ -12,10 +12,10 @@
 #library(dplyr)
 #library(multiHiCcompare)
 #library(annotables)
-#library(GenomicRanges)
 #
 #options(scipen = 10)
 #
+library(GenomicRanges)
 suppressMessages(library(GenomicInteractions))
 #
 # input options
@@ -33,6 +33,8 @@ sigpairs.list <- readRDS(args[1])
 
 test <- sigpairs.list[[1]]
 
+# I mean, IF I HAVE TO USE GENOMIC RANGES TO CREATE THE GENOMIC INTERACTIONS
+# OBJECT, DO I REALLY NEED THE GENOMICINTERACTIONS PACKAGE?
 
 # why do I want to convert to Granges? 
 # WHAT IS THE OUTPUT HERE? A TEXT FILE AND AN RDS FILE. 
