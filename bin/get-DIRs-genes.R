@@ -1,39 +1,37 @@
-###################################################################
-# hreyes december 2019
+#!/usr/bin/env Rscript
 #
-# genes-overlapping-hicexpdiff.R
-#
-# read in multihiccompare normalized data
-# 
+# hreyes June 2020
+# get-DIRs-genes.R
 ###################################################################
-#setwd("~/Desktop/february20/get-diff-genes/")
+# Overlap human genome features with Differentially Interacting
+# Regions (obtained by using multiHiCCompare). 
+###################################################################
+#
 ############### import libraries and set options ##################
 #library(magrittr)
 #library(dplyr)
-library(multiHiCcompare)
+#library(multiHiCcompare)
 #library(annotables)
-library(GenomicRanges)
+#library(GenomicRanges)
 #
-options(scipen = 10)
+#options(scipen = 10)
 #
-
-# library(purrr)
-# library(readr)
-# library(data.table)
-# library(edgeR)
-# library(BiocParallel)
-# library(HiCcompare)
-# library(clusterProfiler)
-# library(DOSE)
-# library(ROntoTools)
-# library(graph)
-
+suppressMessages(library(GenomicInteractions))
+#
+# input options
+args = commandArgs(trailingOnly=TRUE)
+########################## functions ###################################
+# it's dangerous to go alone! take this.
+#
+####################### test empty function. ###########################
+test <- function() {
+  
+}
+#
 #################### read in data ##################################
-# YOU GONNA HAVE TO DO THIS AGAIN AND PROPERLY USE saveRDS AND SO AND SO
-#infile_path <- "data-hicexp-cyclicloess-glm//NC_cycnorm_glm.Rdata"
+sigpairs.list <- readRDS(args[1])
 
-# read in a normalized and compared hiccompare hicexp dataset
-norm_diff_hicexp <- readRDS(infile_path)
+test <- sigpairs.list[[1]]
 
 
 # why do I want to convert to Granges? 
@@ -63,33 +61,5 @@ toGranges <- function(sig_regions) {
 # get human promoters (?) these are sensitive to condition
 # get MCF10 cell lines TADs
 ########
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
