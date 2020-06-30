@@ -8,47 +8,52 @@
 ###################################################################
 #
 ############### import libraries and set options ##################
-#library(magrittr)
-#library(dplyr)
-#library(multiHiCcompare)
-#library(annotables)
-#
-#options(scipen = 10)
-#
 suppressMessages(library(GenomicRanges))
-#suppressMessages(library(GenomicInteractions))
 #
 # input options
 args = commandArgs(trailingOnly=TRUE)
-########################## functions ###################################
+#
+####################################################################
+########################## functions ###############################
 # it's dangerous to go alone! take this.
 #
-####################### Add DIR index column ###########################
+####################### Add DIR index column #######################
 add_DIR_index <- function(interactions) {
   # create index column
   interactions$DIR <- paste0("DIR_", rownames(interactions))
   return(interactions)
 }
-
-
 #
-#################### read in data ##################################
-sigpairs.list <- readRDS(args[1])
-
-test <- sigpairs.list[[1]]
-
-# I mean, IF I HAVE TO USE GENOMIC RANGES TO CREATE THE GENOMIC INTERACTIONS
-# OBJECT, DO I REALLY NEED THE GENOMICINTERACTIONS PACKAGE?
-
-# why do I want to convert to Granges? 
-# WHAT IS THE OUTPUT HERE? A TEXT FILE AND AN RDS FILE. 
-toGranges <- function(sig_regions) {
-  makeGRangesFromDataFrame(sig_regions,
-                           seqnames.field = "chr",
-                           start.field = "start", 
-                           end.field = "end", 
+#################### create GRanges objects ########################
+convert_to_granges <- function(pairs) {
+  # select the columns and create GRanges object for each region in the pair
+  pair1 <- makeGRangesFromDataFrame(pairs[,c("chr1", "start1", "end1", "DIR")],  
+                           seqnames.field = "chr1", 
+                           start.field = "start1",  
+                           end.field = "end1", 
                            keep.extra.columns = TRUE)
+  
+  pair2 <- makeGRangesFromDataFrame(pairs[,c("chr2", "start2", "end2", "DIR")],  
+                           seqnames.field = "chr2", 
+                           start.field = "start2",  
+                           end.field = "end2", 
+                           keep.extra.columns = TRUE)
+  
+  pairs.gr <- list(pair1, pair2)
+  names(pairs.gr) <- c("pair1", "pair2")
+  
+  return(pairs.gr)
 }
+#
+########################## MAIN CODE ###############################
+########################## read in data ############################
+dirs.list <- readRDS(args[1])
+#
+############# Add index to keep track of interactions ##############
+dirs.list <- lapply(dirs.list, add_DIR_index)
+#
+################ get two GRanges from each df ######################
+dirs.list.gr <- lapply(dirs.list, convert_to_granges)
 
 
 # get significant pairs list  
@@ -67,5 +72,3 @@ toGranges <- function(sig_regions) {
 # get human promoters (?) these are sensitive to condition
 # get MCF10 cell lines TADs
 ########
-
-
